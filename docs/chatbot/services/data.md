@@ -1,129 +1,112 @@
 ---
-title: Data Services
+title: Data & Analytics
 category: services
-service: data
+service: data-analytics
 language: en
-source_url: /services#data   # TODO: confirm the real URL of the Data section
+source_url: https://cerionconsulting.com/#data-services
 last_updated: 2026-11-10
 status: draft                # change to "approved" after review
 ---
 
-# Data Services
+# Data & Analytics
 
-> **For reviewers:** This file is the chatbot's knowledge source for the **Data** section of the Services page. The chatbot answers only from what is written here, so everything must be accurate and public. Lines marked `TODO` need to be confirmed or filled in before this goes live. Remove any service we don't actually offer.
+> **For reviewers:** This file is the chatbot's (Ask Dayim) knowledge source for the **Data & Analytics** section of the website (`cerionconsulting.com/#data-services`). The four practice areas and their topics below match the live page. The short explanations under each area are written to help the chatbot answer questions. Check them, and fix anything we don't actually do. Lines marked `TODO` need confirming before this goes live.
 
 ## Overview
 
-Cerion Consulting helps organizations turn their data into decisions. We help clients understand what data they have, get it into one reliable place, make it easy to explore, and use it with confidence, while keeping it secure and compliant.
+Cerion Consulting's Data & Analytics practice helps organizations use their data to make better decisions. Our work covers four areas:
 
-We work with organizations that:
+1. Business & Data Analytics
+2. Business Intelligence & Data Engineering
+3. Machine Learning & Predictive Modeling
+4. Healthcare & Economic Consulting
 
-- have data spread across many tools and spreadsheets and no single view of the business
-- spend too much time preparing reports by hand
-- don't trust their numbers because different reports show different results
-- want to start using analytics or AI but don't know where to begin
-- need to handle personal data in line with GDPR and KVKK
+Data & Analytics is one of Cerion's practices, alongside AI Implementation, Salesforce and Blockchain.
 
-## What we offer
+## 1. Business & Data Analytics
 
-### Data strategy and assessment
+**Topics:** Business Analytics, Statistical Analysis, KPI Development, Performance Reporting
 
-We review your current data, tools and processes, and agree with you on what the business needs from its data. You get a clear picture of where you are today and a prioritized roadmap of what to do next.
+We analyze business data to answer real questions and track what matters.
 
-**Typical outcome:** a current-state assessment, a list of quick wins, and a step-by-step roadmap.
+- **Business Analytics:** turning business data into clear insights and recommendations.
+- **Statistical Analysis:** using statistical methods to find patterns, test assumptions and measure effects with confidence.
+- **KPI Development:** helping you define the key performance indicators that reflect your goals, with clear and consistent definitions.
+- **Performance Reporting:** regular reports that show how the business is performing against those KPIs.
 
-### Data engineering and integration
+## 2. Business Intelligence & Data Engineering
 
-We connect your data sources (for example CRM, ERP, accounting, e-commerce, marketing tools and spreadsheets) and build automated pipelines that bring the data into one place on a regular schedule, so nobody has to copy it by hand.
+**Topics:** Tableau, Power BI, SQL, Database Management, Data Integration, Reporting Automation
 
-**Typical outcome:** automated, monitored data pipelines and documented data flows.
+We build the data foundations and dashboards that make information easy to access.
 
-### Data warehousing and modern data platforms
+- **Tableau and Power BI:** interactive dashboards and reports in the two leading BI tools.
+- **SQL:** querying, transforming and modeling data in relational databases.
+- **Database Management:** designing, organizing and maintaining databases so data is reliable and easy to use.
+- **Data Integration:** bringing data from different sources and systems together in one place.
+- **Reporting Automation:** replacing manual, repetitive reporting with reports that update automatically.
 
-We design and set up a central data store, such as a cloud data warehouse, that holds clean, structured data and acts as a single source of truth for reporting and analysis.
+## 3. Machine Learning & Predictive Modeling
 
-**Typical outcome:** a working data platform with a clear data model your team can build on.
+**Topics:** Predictive Analytics, Forecasting, Classification, Clustering, Simulation
 
-### Business intelligence and dashboards
+We build models that help you anticipate what's next and understand your data more deeply.
 
-We build dashboards and reports that show the metrics that matter to you, update automatically, and are easy for non-technical teams to use.
+- **Predictive Analytics:** using historical data to estimate future outcomes, such as demand, churn or risk.
+- **Forecasting:** projecting future values over time, such as sales, volumes or costs.
+- **Classification:** models that sort items into categories, for example which customers are likely to respond or which cases are high risk.
+- **Clustering:** grouping similar items, such as customer segments, to reveal patterns that aren't obvious.
+- **Simulation:** modeling "what-if" scenarios to test decisions before acting on them.
 
-**Typical outcome:** live dashboards, agreed KPI definitions, and training for your team.
+## 4. Healthcare & Economic Consulting
 
-### Data analytics
+**Topics:** Healthcare Analytics, HEOR, Cost-Effectiveness Analysis, Economic Modeling, Healthcare Simulation
 
-We analyze your data to answer specific business questions, for example what drives sales, where costs can be reduced, or which customers are most likely to churn.
+We apply data and economic methods to healthcare questions.
 
-**Typical outcome:** findings and recommendations presented in plain language.
-
-### Data governance and data quality
-
-We help you define who owns which data, how it should be defined and used, and how to check its quality, so your numbers are consistent and trusted across the organization.
-
-**Typical outcome:** data ownership roles, a data dictionary, and quality checks.
-
-### Data privacy and compliance
-
-We help you handle personal data in line with GDPR and KVKK: mapping where personal data lives, setting access controls and retention rules, and building privacy into your data processes.
-
-**Typical outcome:** a personal data inventory, access and retention policies, and practical recommendations.
-
-> We give practical, data-focused compliance support. We do not give legal advice; for legal questions we recommend working alongside your legal advisor. `TODO: confirm this wording`
-
-### AI and machine learning readiness
-
-We assess whether your data is ready for AI, identify realistic use cases, and help you prepare the data foundations needed for AI and machine learning projects.
-
-**Typical outcome:** a list of prioritized use cases and the data work needed to support them.
-
-## How we work
-
-1. **Discovery call:** a short, free conversation to understand your goals. `TODO: confirm it is free and how long it is`
-2. **Assessment:** we review your current data setup and agree on scope.
-3. **Proposal:** a clear plan with deliverables and timeline.
-4. **Delivery:** we build in short phases and show progress regularly.
-5. **Handover and support:** documentation, training for your team, and optional ongoing support.
-
-## Tools and technologies
-
-We are tool-agnostic and recommend what fits your needs, budget and existing setup. We work with common platforms, including:
-
-- `TODO: list only the tools the team actually works with, e.g. cloud data warehouses, BI tools, integration tools, programming languages`
+- **Healthcare Analytics:** analyzing healthcare data to improve outcomes, operations and decision-making.
+- **HEOR (Health Economics and Outcomes Research):** measuring the clinical, economic and patient outcomes of treatments and interventions.
+- **Cost-Effectiveness Analysis:** comparing the costs and health benefits of different options to show which offers the best value.
+- **Economic Modeling:** building models that estimate the economic impact of healthcare decisions over time.
+- **Healthcare Simulation:** simulating patient flows, care pathways or interventions to test changes before putting them into practice.
 
 ## Frequently asked questions
 
-**What data services does Cerion Consulting offer?**
-Data strategy, data engineering and integration, data warehousing, business intelligence and dashboards, data analytics, data governance and quality, data privacy and compliance (GDPR/KVKK), and AI readiness.
+**What does Cerion Consulting do in data?**
+Our Data & Analytics practice covers four areas: Business & Data Analytics, Business Intelligence & Data Engineering, Machine Learning & Predictive Modeling, and Healthcare & Economic Consulting.
 
-**We are a small company. Is this for us?**
-Yes. We scale the work to your size and needs. Many projects start small, for example with one dashboard or one automated report, and grow from there. `TODO: confirm target client size`
+**Do you build dashboards?**
+Yes. We build dashboards and reports in Tableau and Power BI, and we can automate reporting so it updates without manual work.
 
-**How long does a data project take?**
-It depends on the scope. A focused piece of work, such as an assessment or a first dashboard, usually takes weeks rather than months. Larger platform projects are delivered in phases. We give a timeline in our proposal after the discovery call. `TODO: confirm typical durations`
+**Which tools do you work with?**
+Tableau, Power BI and SQL, along with database management and data integration work. `TODO: add any other tools the team wants to mention, e.g. Python, R, Excel, cloud platforms`
 
-**How much does it cost?**
-Pricing depends on the scope of the project. Please get in touch through the contact form and we will prepare a proposal for you.
+**Can you help us define our KPIs?**
+Yes. KPI development is part of our Business & Data Analytics work: we help you choose the right KPIs, define them clearly, and report on them.
 
-**Do we need to use specific tools?**
-No. We work with the tools you already have where possible and only recommend new ones when they clearly add value.
+**Can you forecast our sales or demand?**
+Yes. Forecasting and predictive analytics are part of our Machine Learning & Predictive Modeling work.
 
-**Can you work with our existing team?**
-Yes. We can deliver the whole project or work alongside your in-house team, and we train your team so they can maintain and extend what we build.
+**Do you work in healthcare?**
+Yes. Our Healthcare & Economic Consulting area covers healthcare analytics, HEOR, cost-effectiveness analysis, economic modeling and healthcare simulation.
 
-**Is our data safe with you?**
-Yes. We only access the data the project needs, follow the client's security policies, and handle personal data in line with GDPR and KVKK. `TODO: confirm, and mention any NDA practice`
+**What is HEOR?**
+HEOR stands for Health Economics and Outcomes Research. It measures the clinical, economic and patient outcomes of treatments and interventions to support healthcare decisions.
 
-**Do you offer support after the project?**
-Yes, optional ongoing support and maintenance is available. `TODO: confirm`
+**What's the difference between Data & Analytics and AI Implementation?**
+Data & Analytics focuses on analyzing data, building dashboards and data pipelines, and creating statistical and predictive models. AI Implementation is a separate Cerion practice; ask about it or visit its section of the website for details.
+
+**How much does it cost / how long does it take?**
+It depends on the scope of the work. Use "Talk to us" on the website and the team will get back to you with a proposal.
 
 **How do I get started?**
-Use the contact form on our website to book a discovery call. `TODO: add the contact page URL`
+Click "Talk to us" on the website to reach the team.
 
 ## Chatbot answering rules for this section
 
-- Answer only from the content of this file and other approved Cerion Consulting pages.
-- **Never** give prices, discounts or exact timelines. Direct the visitor to the contact form for a proposal.
+- Answer only from this file and other approved Cerion Consulting content.
+- Only describe the four areas and topics listed above. Don't claim services, tools or industries that aren't listed.
+- **Never** give prices, discounts or exact timelines. Direct the visitor to "Talk to us".
 - **Never** name clients or describe client projects unless they appear in a published case study.
-- **Never** give legal advice. For legal compliance questions, explain what we help with and recommend a legal advisor.
-- If a question is not covered here, say so and offer the contact form.
-- When the visitor shows interest in a project, offer to connect them with the team through the contact form.
+- If a question isn't covered here, say so and suggest "Talk to us".
+- For questions about AI Implementation, Salesforce or Blockchain, point the visitor to those practices.
