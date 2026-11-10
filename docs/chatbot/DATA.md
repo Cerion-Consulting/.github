@@ -1,279 +1,279 @@
-# Chatbot — Veri (Data) Dokümanı
+# Chatbot — Data Documentation
 
-> **Durum:** Taslak · **Sahibi:** Data sorumlusu · **Son güncelleme:** 2026-11-10
+> **Status:** Draft · **Owner:** Data lead · **Last updated:** 2026-11-10
 >
-> Bu doküman, Cerion Consulting web sitesindeki chatbot'un hangi verileri kullandığını, bu verilerin nasıl toplandığını, işlendiğini, saklandığını ve korunduğunu tanımlar. "Önerilen" diye işaretlenen maddeler ekipçe onaylanana kadar karar değildir.
+> This document defines what data the chatbot on the Cerion Consulting website uses, and how that data is collected, processed, stored and protected. Items marked "proposed" are not decisions until the team approves them.
 
 ---
 
-## İçindekiler
+## Contents
 
-1. [Amaç ve kapsam](#1-amaç-ve-kapsam)
-2. [Veri kaynakları](#2-veri-kaynakları)
-3. [Bilgi tabanı (knowledge base) hazırlığı](#3-bilgi-tabanı-knowledge-base-hazırlığı)
-4. [Konuşma verileri](#4-konuşma-verileri)
-5. [Veri modeli (şema)](#5-veri-modeli-şema)
-6. [Gizlilik, KVKK ve GDPR](#6-gizlilik-kvkk-ve-gdpr)
-7. [Saklama ve silme](#7-saklama-ve-silme)
-8. [Güvenlik ve erişim](#8-güvenlik-ve-erişim)
-9. [Veri kalitesi ve güncelleme](#9-veri-kalitesi-ve-güncelleme)
-10. [Ölçümleme ve raporlama](#10-ölçümleme-ve-raporlama)
-11. [Roller ve sorumluluklar](#11-roller-ve-sorumluluklar)
-12. [Açık sorular](#12-açık-sorular)
-
----
-
-## 1. Amaç ve kapsam
-
-**Chatbot'un amacı:** Web sitesi ziyaretçilerinin hizmetlerimiz, çalışma şeklimiz ve iletişim süreçleri hakkındaki sorularını yanıtlamak ve uygun ziyaretçileri iletişime / toplantı talebine yönlendirmek.
-
-**Bu dokümanın kapsamı:**
-
-- Chatbot'un yanıt üretirken dayandığı içerik (bilgi tabanı)
-- Ziyaretçiyle yapılan konuşmalardan oluşan veriler
-- Bu verilerin saklanması, korunması ve analiz edilmesi
-
-**Kapsam dışı:** Arayüz tasarımı, model/sağlayıcı seçimi ve altyapı kurulumu (ilgili dokümanlarda ele alınır).
+1. [Purpose and scope](#1-purpose-and-scope)
+2. [Data sources](#2-data-sources)
+3. [Knowledge base preparation](#3-knowledge-base-preparation)
+4. [Conversation data](#4-conversation-data)
+5. [Data model (schema)](#5-data-model-schema)
+6. [Privacy, KVKK and GDPR](#6-privacy-kvkk-and-gdpr)
+7. [Retention and deletion](#7-retention-and-deletion)
+8. [Security and access](#8-security-and-access)
+9. [Data quality and updates](#9-data-quality-and-updates)
+10. [Metrics and reporting](#10-metrics-and-reporting)
+11. [Roles and responsibilities](#11-roles-and-responsibilities)
+12. [Open questions](#12-open-questions)
 
 ---
 
-## 2. Veri kaynakları
+## 1. Purpose and scope
 
-| # | Kaynak | İçerik | Format | Sahibi | Güncelleme sıklığı |
-|---|--------|--------|--------|--------|--------------------|
-| 1 | Web sitesi sayfaları | Hizmetler, hakkımızda, iletişim | HTML / Markdown | Web ekibi | Sayfa değiştikçe |
-| 2 | SSS (FAQ) listesi | Sık sorulan sorular ve onaylı cevaplar | Markdown / YAML | Data sorumlusu | Aylık gözden geçirme |
-| 3 | Blog / vaka çalışmaları | Yayımlanmış içerikler | HTML / Markdown | İçerik ekibi | Yeni yazı yayımlandıkça |
-| 4 | Sabit bilgiler | Çalışma saatleri, iletişim kanalları, ofis bilgisi | YAML / JSON | Data sorumlusu | Değiştikçe |
-| 5 | Konuşma kayıtları | Ziyaretçi mesajları ve bot yanıtları | Veritabanı | Data sorumlusu | Sürekli |
+**What the chatbot is for:** Answering website visitors' questions about our services, how we work and how to get in touch, and directing interested visitors to the contact form or a meeting request.
 
-**Kurallar:**
+**This document covers:**
 
-- Bilgi tabanına **yalnızca kamuya açık ve onaylanmış** içerik girer.
-- Müşteri sözleşmeleri, teklifler, fiyat listeleri, iç yazışmalar ve müşteri kişisel verileri bilgi tabanına **girmez**.
-- Her kaynağın bir sahibi olmalıdır; sahibi olmayan içerik eklenmez.
+- The content the chatbot relies on to answer (the knowledge base)
+- The data created by conversations with visitors
+- How this data is stored, protected and analyzed
+
+**Out of scope:** UI design, model/provider choice and infrastructure setup (covered in their own documents).
 
 ---
 
-## 3. Bilgi tabanı (knowledge base) hazırlığı
+## 2. Data sources
 
-Chatbot'un doğru ve güncel cevap vermesi için içerik aşağıdaki adımlardan geçer (önerilen akış — RAG yaklaşımı):
+| # | Source | Content | Format | Owner | Update frequency |
+|---|--------|---------|--------|-------|------------------|
+| 1 | Website pages | Services, about us, contact | HTML / Markdown | Web team | Whenever a page changes |
+| 2 | FAQ list | Frequently asked questions with approved answers | Markdown / YAML | Data lead | Monthly review |
+| 3 | Blog / case studies | Published content | HTML / Markdown | Content team | When a new post is published |
+| 4 | Fixed facts | Office hours, contact channels, office details | YAML / JSON | Data lead | Whenever they change |
+| 5 | Conversation logs | Visitor messages and bot replies | Database | Data lead | Continuous |
+
+**Rules:**
+
+- Only **public, approved** content goes into the knowledge base.
+- Client contracts, proposals, price lists, internal correspondence and client personal data **never** go into the knowledge base.
+- Every source must have an owner; content without an owner is not added.
+
+---
+
+## 3. Knowledge base preparation
+
+For the chatbot to give correct, up-to-date answers, content goes through the following steps (proposed flow — RAG, retrieval-augmented generation: before answering, the bot looks up the most relevant pieces of our content and bases its answer on them):
 
 ```
-Kaynaklar ──► Toplama ──► Temizleme ──► Parçalama (chunking) ──► Embedding ──► Vektör veritabanı
-                                                                                     │
-Ziyaretçi sorusu ──────────────────────────────► En ilgili parçaları bul ◄───────────┘
-                                                        │
-                                                        ▼
-                                              Model, bu parçalara dayanarak cevap verir
+Sources ──► Collect ──► Clean ──► Chunk ──► Embed ──► Vector database
+                                                          │
+Visitor question ──────────────► Find most relevant chunks ◄┘
+                                          │
+                                          ▼
+                          Model answers based on those chunks
 ```
 
-### 3.1 Toplama
+### 3.1 Collection
 
-- Web sayfaları sitemap üzerinden veya içerik deposundan (Markdown) alınır.
-- SSS ve sabit bilgiler tek bir klasörde, sürüm kontrolü altında tutulur (önerilen: `content/chatbot/`).
+- Web pages are pulled from the sitemap or from the content repository (Markdown).
+- FAQ and fixed facts live in one folder under version control (proposed: `content/chatbot/`).
 
-### 3.2 Temizleme
+### 3.2 Cleaning
 
-- Menü, footer, cookie banner gibi tekrar eden kısımlar çıkarılır.
-- Boş, yinelenen (duplicate) veya taslak sayfalar elenir.
-- Metin UTF-8'e normalize edilir; Türkçe karakterler korunur.
+- Repeated elements such as menus, footers and cookie banners are removed.
+- Empty, duplicate or draft pages are filtered out.
+- Text is normalized to UTF-8; Turkish characters are preserved.
 
-### 3.3 Parçalama (chunking)
+### 3.3 Chunking
 
-| Parametre | Önerilen değer | Not |
-|-----------|----------------|-----|
-| Parça boyutu | ~300–500 kelime | Başlık bazlı bölme tercih edilir |
-| Örtüşme (overlap) | ~10–15% | Bağlam kopmasını azaltır |
-| SSS | Her soru-cevap çifti tek parça | Bölünmez |
+| Parameter | Proposed value | Note |
+|-----------|----------------|------|
+| Chunk size | ~300–500 words | Splitting by heading is preferred |
+| Overlap | ~10–15% | Reduces lost context between chunks |
+| FAQ | Each question-answer pair is one chunk | Never split |
 
-### 3.4 Meta veri
+### 3.4 Metadata
 
-Her parçada en az şu alanlar bulunur:
+Every chunk has at least these fields:
 
-- `source_url` veya `source_file` — cevabın kaynağını göstermek için
-- `title` — sayfa / bölüm başlığı
-- `language` — `tr` / `en`
-- `last_updated` — içeriğin son güncellenme tarihi
-- `category` — örn. `hizmetler`, `iletisim`, `sss`
+- `source_url` or `source_file` — to show where the answer came from
+- `title` — page / section title
+- `language` — `en` / `tr`
+- `last_updated` — when the content was last updated
+- `category` — e.g. `services`, `contact`, `faq`
 
-### 3.5 Dil
+### 3.5 Language
 
-- Site hangi dillerde yayındaysa bilgi tabanı da o dillerde tutulur.
-- Ziyaretçi hangi dilde yazarsa, öncelikle o dildeki parçalar getirilir.
-
----
-
-## 4. Konuşma verileri
-
-### 4.1 Toplanan veriler
-
-| Veri | Neden | Zorunlu mu? |
-|------|-------|-------------|
-| Oturum ID (anonim) | Konuşmayı bir arada tutmak | Evet |
-| Mesaj metni (kullanıcı + bot) | Cevap kalitesini ölçmek ve iyileştirmek | Evet |
-| Zaman damgası | Analiz, saklama süresi takibi | Evet |
-| Sayfa URL'si (sohbetin başladığı sayfa) | Hangi sayfada soru sorulduğunu anlamak | Evet |
-| Dil | Raporlama | Evet |
-| Geri bildirim (👍 / 👎) | Kalite ölçümü | Hayır |
-| İletişim bilgisi (ad, e-posta) | Yalnızca ziyaretçi **kendi isteğiyle** iletişim talep ederse | Hayır |
-
-### 4.2 Toplanmayan veriler
-
-- IP adresinin tamamı (gerekirse yalnızca kısaltılmış / anonimleştirilmiş hali)
-- Tarayıcı parmak izi (fingerprinting)
-- Ziyaretçinin onayı olmadan herhangi bir kişisel veri
-- Konuşma içinden otomatik olarak çıkarılan kimlik bilgileri
-
-### 4.3 Kişisel veri maskeleme
-
-Ziyaretçiler mesajlara kendiliğinden kişisel veri yazabilir. Kayıt öncesinde şu desenler maskelenir (önerilen):
-
-- E-posta adresleri → `[EMAIL]`
-- Telefon numaraları → `[TELEFON]`
-- TC kimlik no / IBAN / kart numarası → `[GIZLI]`
-
-> Not: İletişim formu üzerinden **bilerek** paylaşılan iletişim bilgisi maskelenmez; ayrı bir tabloda, ayrı erişim yetkisiyle tutulur (bkz. `lead` tablosu).
+- The knowledge base is kept in every language the site is published in.
+- Chunks in the visitor's language are retrieved first.
 
 ---
 
-## 5. Veri modeli (şema)
+## 4. Conversation data
 
-Önerilen tablolar (veritabanı türü henüz kesinleşmedi):
+### 4.1 Data we collect
+
+| Data | Why | Required? |
+|------|-----|-----------|
+| Session ID (anonymous) | To group messages into one conversation | Yes |
+| Message text (user + bot) | To measure and improve answer quality | Yes |
+| Timestamp | Analysis, retention tracking | Yes |
+| Page URL (where the chat started) | To see which pages raise questions | Yes |
+| Language | Reporting | Yes |
+| Feedback (👍 / 👎) | Quality measurement | No |
+| Contact details (name, email) | Only if the visitor **chooses** to request contact | No |
+
+### 4.2 Data we do not collect
+
+- Full IP addresses (if needed, only a truncated / anonymized form)
+- Browser fingerprints
+- Any personal data without the visitor's consent
+- Identity details automatically extracted from conversation text
+
+### 4.3 Personal data masking
+
+Visitors may type personal data into messages on their own. Before storage, these patterns are masked (proposed):
+
+- Email addresses → `[EMAIL]`
+- Phone numbers → `[PHONE]`
+- National ID numbers / IBANs / card numbers → `[REDACTED]`
+
+> Note: Contact details shared **deliberately** through the contact form are not masked; they are kept in a separate table with separate access rights (see the `lead` table).
+
+---
+
+## 5. Data model (schema)
+
+Proposed tables (database type not yet decided):
 
 ### `conversation`
 
-| Alan | Tip | Açıklama |
-|------|-----|----------|
-| `id` | UUID | Birincil anahtar |
-| `started_at` | timestamp | Konuşmanın başlangıcı |
-| `ended_at` | timestamp, null | Son mesaj zamanı |
-| `page_url` | text | Sohbetin başladığı sayfa |
-| `language` | text | `tr` / `en` |
-| `handoff` | boolean | İnsana / iletişim formuna yönlendirildi mi |
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | UUID | Primary key |
+| `started_at` | timestamp | Start of the conversation |
+| `ended_at` | timestamp, null | Time of the last message |
+| `page_url` | text | Page where the chat started |
+| `language` | text | `en` / `tr` |
+| `handoff` | boolean | Whether it was handed off to a person / the contact form |
 
 ### `message`
 
-| Alan | Tip | Açıklama |
-|------|-----|----------|
-| `id` | UUID | Birincil anahtar |
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | UUID | Primary key |
 | `conversation_id` | UUID | `conversation.id` |
 | `role` | enum | `user` / `assistant` |
-| `content` | text | Maskelenmiş mesaj metni |
-| `sources` | JSON, null | Cevapta kullanılan bilgi tabanı parçaları |
-| `created_at` | timestamp | Mesaj zamanı |
+| `content` | text | Masked message text |
+| `sources` | JSON, null | Knowledge base chunks used in the answer |
+| `created_at` | timestamp | Message time |
 
 ### `feedback`
 
-| Alan | Tip | Açıklama |
-|------|-----|----------|
-| `id` | UUID | Birincil anahtar |
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | UUID | Primary key |
 | `message_id` | UUID | `message.id` |
 | `rating` | enum | `up` / `down` |
-| `comment` | text, null | İsteğe bağlı açıklama |
+| `comment` | text, null | Optional comment |
 | `created_at` | timestamp | |
 
-### `lead` (ayrı erişim yetkisi)
+### `lead` (separate access rights)
 
-| Alan | Tip | Açıklama |
-|------|-----|----------|
-| `id` | UUID | Birincil anahtar |
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | UUID | Primary key |
 | `conversation_id` | UUID | `conversation.id` |
-| `name` | text | Ziyaretçinin verdiği ad |
-| `email` | text | Ziyaretçinin verdiği e-posta |
-| `consent_at` | timestamp | Onay (açık rıza) zamanı |
-| `consent_text_version` | text | Gösterilen aydınlatma metninin sürümü |
+| `name` | text | Name given by the visitor |
+| `email` | text | Email given by the visitor |
+| `consent_at` | timestamp | Time of explicit consent |
+| `consent_text_version` | text | Version of the privacy notice shown |
 
 ---
 
-## 6. Gizlilik, KVKK ve GDPR
+## 6. Privacy, KVKK and GDPR
 
-- **Aydınlatma:** Chatbot penceresinde kısa bir bilgilendirme ve Gizlilik Politikası bağlantısı gösterilir ("Bu sohbet hizmet kalitesini iyileştirmek için kaydedilir").
-- **Açık rıza:** İletişim bilgisi yalnızca ziyaretçi bir onay kutusunu işaretledikten sonra alınır.
-- **Veri minimizasyonu:** Amaç için gerekmeyen hiçbir veri toplanmaz (bkz. §4.2).
-- **Üçüncü taraf sağlayıcılar:** Kullanılan model / barındırma sağlayıcısının veri işleme sözleşmesi (DPA) incelenir; mesajların sağlayıcı tarafında model eğitimi için kullanılmadığı teyit edilir.
-- **Yurt dışına aktarım:** Sağlayıcının sunucu konumu belirlenir ve KVKK/GDPR açısından gerekiyorsa Gizlilik Politikası'na eklenir.
-- **İlgili kişi talepleri:** Erişim / silme talepleri en geç 30 gün içinde yanıtlanır; oturum ID'si veya e-posta ile kayıt bulunup silinebilmelidir.
-
----
-
-## 7. Saklama ve silme
-
-| Veri | Saklama süresi (önerilen) | Süre sonunda |
-|------|---------------------------|--------------|
-| Konuşma ve mesajlar | 12 ay | Otomatik silinir |
-| Geri bildirim | 12 ay | Otomatik silinir |
-| Lead (iletişim bilgisi) | İletişim süreci bitene kadar, en fazla 24 ay | Silinir veya CRM'e taşınır |
-| Anonim toplu istatistikler | Süresiz | — (kişisel veri içermez) |
-| Bilgi tabanı | Kaynak yayında olduğu sürece | Kaynak kaldırılınca indeksten de silinir |
-
-- Silme işlemi zamanlanmış bir görevle (ör. günlük) yapılır ve loglanır.
-- Yedeklerdeki veriler de aynı süre politikasına tabidir.
+- **Notice:** The chat window shows a short notice and a link to the Privacy Policy ("This chat is recorded to improve our service").
+- **Explicit consent:** Contact details are collected only after the visitor ticks a consent checkbox.
+- **Data minimization:** No data is collected beyond what the purpose needs (see §4.2).
+- **Third-party providers:** The data processing agreement (DPA) of the model / hosting provider is reviewed, and we confirm that messages are not used to train the provider's models.
+- **International transfers:** The provider's server location is identified and, where KVKK/GDPR require it, added to the Privacy Policy.
+- **Data subject requests:** Access / deletion requests are answered within 30 days at most; records must be findable and deletable by session ID or email.
 
 ---
 
-## 8. Güvenlik ve erişim
+## 7. Retention and deletion
 
-- API anahtarları ve veritabanı şifreleri **asla** depoya (repo) yazılmaz; ortam değişkenleri veya secret manager kullanılır.
-- Veriler aktarımda (TLS) ve depolamada şifrelenir.
-- Erişim rolleri:
+| Data | Retention (proposed) | At the end of the period |
+|------|----------------------|--------------------------|
+| Conversations and messages | 12 months | Deleted automatically |
+| Feedback | 12 months | Deleted automatically |
+| Leads (contact details) | Until the contact process ends, max 24 months | Deleted or moved to the CRM |
+| Anonymous aggregate statistics | Indefinite | — (no personal data) |
+| Knowledge base | As long as the source is published | Removed from the index when the source is removed |
 
-| Rol | `conversation` / `message` | `feedback` | `lead` |
-|-----|----------------------------|------------|--------|
-| Data sorumlusu | Okuma / silme | Okuma | Okuma / silme |
-| Geliştirici | Yalnızca test ortamı | Yalnızca test ortamı | Erişim yok |
-| Satış / iletişim | Erişim yok | Erişim yok | Okuma |
-
-- Test ve geliştirme ortamlarında **gerçek konuşma verisi kullanılmaz**; sentetik örnek veri kullanılır.
-
----
-
-## 9. Veri kalitesi ve güncelleme
-
-- **Tek doğru kaynak:** Bir bilgi (ör. iletişim e-postası) yalnızca tek bir yerde tutulur.
-- **Yeniden indeksleme:** Kaynak içerik değiştiğinde bilgi tabanı yeniden oluşturulur (önerilen: içerik deposuna yapılan her merge sonrası otomatik).
-- **Aylık gözden geçirme:**
-  - 👎 alan cevaplar incelenir
-  - Cevaplanamayan sorular listelenir → SSS'ye eklenir veya içerik güncellenir
-  - Güncelliğini yitirmiş içerik (`last_updated` > 6 ay) kontrol edilir
-- **Test seti:** En az 30–50 soru ve beklenen cevaptan oluşan bir değerlendirme seti tutulur; bilgi tabanı veya ayarlar her değiştiğinde bu set ile kontrol yapılır.
+- Deletion runs as a scheduled job (e.g. daily) and is logged.
+- Data in backups follows the same retention policy.
 
 ---
 
-## 10. Ölçümleme ve raporlama
+## 8. Security and access
 
-| Metrik | Tanım | Hedef (önerilen) |
-|--------|-------|------------------|
-| Konuşma sayısı | Haftalık / aylık başlatılan konuşma | Takip |
-| Cevaplanma oranı | Bot'un bilgi tabanından cevap verebildiği soru oranı | ≥ %85 |
-| Olumlu geri bildirim oranı | 👍 / (👍 + 👎) | ≥ %80 |
-| Yönlendirme (handoff) oranı | İletişim formuna / insana aktarılan konuşma oranı | Takip |
-| Lead dönüşümü | İletişim bilgisi bırakılan konuşma oranı | Takip |
-| En çok sorulan konular | Kategori bazında soru dağılımı | Aylık rapor |
+- API keys and database passwords are **never** written to the repository; use environment variables or a secret manager.
+- Data is encrypted in transit (TLS) and at rest.
+- Access roles:
 
-Raporlar yalnızca **anonim ve toplu** verilerle hazırlanır.
+| Role | `conversation` / `message` | `feedback` | `lead` |
+|------|----------------------------|------------|--------|
+| Data lead | Read / delete | Read | Read / delete |
+| Developer | Test environment only | Test environment only | No access |
+| Sales / contact | No access | No access | Read |
 
----
-
-## 11. Roller ve sorumluluklar
-
-| Görev | Sorumlu |
-|-------|---------|
-| Bu dokümanın bakımı | Data sorumlusu |
-| Bilgi tabanı içeriğinin doğruluğu | İlgili içerik sahibi (bkz. §2) |
-| SSS listesinin güncellenmesi | Data sorumlusu |
-| Gizlilik metni ve KVKK uyumu | Data sorumlusu + hukuk danışmanı |
-| Altyapı, şifreleme ve erişim ayarları | Geliştirici |
-| Aylık kalite raporu | Data sorumlusu |
+- Test and development environments **never use real conversation data**; use synthetic sample data instead.
 
 ---
 
-## 12. Açık sorular
+## 9. Data quality and updates
 
-- [ ] Hangi model / sağlayıcı kullanılacak? Sunucu konumu ve DPA durumu nedir?
-- [ ] Hangi veritabanı ve vektör veritabanı kullanılacak?
-- [ ] Site hangi dillerde yayında olacak (yalnızca TR mi, TR + EN mi)?
-- [ ] Saklama süreleri (§7) onaylanıyor mu?
-- [ ] Lead verileri bir CRM'e aktarılacak mı? Aktarılacaksa hangisine?
-- [ ] Chatbot fiyat / teklif sorularına nasıl cevap verecek (yönlendirme mi, genel bilgi mi)?
-- [ ] Gizlilik Politikası'nın chatbot bölümünü kim yazacak / onaylayacak?
+- **Single source of truth:** Each fact (e.g. the contact email) is kept in exactly one place.
+- **Re-indexing:** When source content changes, the knowledge base is rebuilt (proposed: automatically after every merge to the content repository).
+- **Monthly review:**
+  - Review answers that got a 👎
+  - List unanswered questions → add them to the FAQ or update the content
+  - Check stale content (`last_updated` older than 6 months)
+- **Test set:** Keep an evaluation set of at least 30–50 questions with expected answers; run it whenever the knowledge base or settings change.
+
+---
+
+## 10. Metrics and reporting
+
+| Metric | Definition | Target (proposed) |
+|--------|------------|-------------------|
+| Conversations | Conversations started per week / month | Track |
+| Answer rate | Share of questions the bot could answer from the knowledge base | ≥ 85% |
+| Positive feedback rate | 👍 / (👍 + 👎) | ≥ 80% |
+| Handoff rate | Share of conversations handed to the contact form / a person | Track |
+| Lead conversion | Share of conversations where the visitor left contact details | Track |
+| Top topics | Question distribution by category | Monthly report |
+
+Reports use only **anonymous, aggregated** data.
+
+---
+
+## 11. Roles and responsibilities
+
+| Task | Owner |
+|------|-------|
+| Maintaining this document | Data lead |
+| Accuracy of knowledge base content | The relevant content owner (see §2) |
+| Keeping the FAQ list up to date | Data lead |
+| Privacy notice and KVKK compliance | Data lead + legal advisor |
+| Infrastructure, encryption and access settings | Developer |
+| Monthly quality report | Data lead |
+
+---
+
+## 12. Open questions
+
+- [ ] Which model / provider will we use? Where are its servers, and what is the DPA status?
+- [ ] Which database and vector database will we use?
+- [ ] Which languages will the site be published in (English only, or English + Turkish)?
+- [ ] Are the retention periods in §7 approved?
+- [ ] Will lead data be sent to a CRM? If so, which one?
+- [ ] How should the chatbot handle pricing / proposal questions (redirect, or give general information)?
+- [ ] Who writes / approves the chatbot section of the Privacy Policy?
